@@ -195,13 +195,13 @@ unless ENV["DEPENDABOT_VERSIONING_STRATEGY"].to_s.strip.empty?
   end
 
   # For pub, we also correct the strategy
-  # https://github.com/dependabot/dependabot-core/blob/ca9f236591ba49fa6e2a8d5f06e538614033a628/pub/lib/dependabot/pub/update_checker.rb#L110
+  # https://github.com/dependabot/dependabot-core/blob/95e8e792b12ac04577ed104fadd4951e57827dc1/pub/lib/dependabot/pub/update_checker.rb#L159
   if $package_manager == "pub"
     strategy = $options[:requirements_update_strategy]
     $options[:requirements_update_strategy] = case strategy
                                               when :auto then nil
-                                              when :lockfile_only then "bump_versions"
-                                              else strategy.to_s
+                                              when :lockfile_only then :bump_versions
+                                              else strategy
                                               end
   end
 end
